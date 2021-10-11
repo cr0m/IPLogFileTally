@@ -1,22 +1,24 @@
 #
-# IP Log File Tally - Pll out and count from log file 
+# IP Address pull out and counter for log files
 # Set to_strip_out to and pre or post text to the address
+# 
+# ./testscript.py filename filter
 #
 
+import sys
 import re
 from collections import Counter
 
-file = "FILE_NAME.log"
+file = str(sys.argv[1])
+filter = str(sys.argv[2])
 
-# set up for destination IP syntax (for fortinet)
-# change "dstip=" out for whatever
-ip_regex = 'dstip=(?:[0-9]{1,3}\.){3}[0-9]{1,3}'
-to_strip_out = "['dstip= ']"
+ip_regex = "%s=(?:[0-9]{1,3}\.){3}[0-9]{1,3}" % (filter)
+to_strip_out = "['%s= '] ', '" % (filter)
 
 logs = []
 templist = []
-count = 0
 iplist = []
+count = 0
 
 with open(file) as log_file:
     for log_entry in log_file:

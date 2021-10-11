@@ -26,7 +26,7 @@ with open(file) as log_file:
 
         ip = re.findall(ip_regex,log_entry)
 
-		# Tally up unique IPs
+        # Tally up unique IPs
         for i in ip:
             if i not in templist:
                 count = count + 1
